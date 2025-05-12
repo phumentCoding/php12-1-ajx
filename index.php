@@ -78,10 +78,22 @@
             <th>Phone</th>
             <th>Email</th>
             <th>Address</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody id="studentTableBody">
-          <!-- Student data will be populated here -->
+             <tr>
+                <td>image.jpg</td>
+                <td>Rithy</td>
+                <td>Male</td>
+                <td>Phone</td>
+                <td>email</td>
+                <td>address</td>
+                <td>
+                    <button class=" btn btn-primary">Edit</button>
+                    <button class=" btn btn-danger">Delete</button>
+                </td>
+             </tr>
         </tbody>
       </table>
     </div>
@@ -160,6 +172,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
   <script>
     const imageInput = document.getElementById('image');
@@ -198,6 +211,25 @@
       imagePreview.innerHTML = '<div class="preview-placeholder">Image preview will appear here</div>';
       removeImageBtn.style.display = 'none';
     }
+  </script>
+
+  <script>
+        const renderStudent = () => {
+            $.ajax({
+                type: "GET",
+                url: "controller.php?type=select",
+                dataType: "json",
+                success: function (response) {
+                    console.log("Students fetched:", response);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching students:", error);
+                }
+            });
+        }
+
+        renderStudent();
+
   </script>
 </body>
 </html>
