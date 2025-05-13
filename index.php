@@ -82,18 +82,7 @@
           </tr>
         </thead>
         <tbody id="studentTableBody">
-             <tr>
-                <td>image.jpg</td>
-                <td>Rithy</td>
-                <td>Male</td>
-                <td>Phone</td>
-                <td>email</td>
-                <td>address</td>
-                <td>
-                    <button class=" btn btn-primary">Edit</button>
-                    <button class=" btn btn-danger">Delete</button>
-                </td>
-             </tr>
+             
         </tbody>
       </table>
     </div>
@@ -220,7 +209,34 @@
                 url: "controller.php?type=select",
                 dataType: "json",
                 success: function (response) {
-                    console.log("Students fetched:", response);
+                    // console.log("Students fetched:", response);
+
+                    let students = response.students;
+
+                    console.log(students);
+
+
+                    let tr = ``;
+                    $.map(students, function (student, index) {
+                      tr += `
+                      <tr>
+                        <td>image.jpg</td>
+                        <td>${student.name}</td>
+                        <td>${student.gender}</td>
+                        <td>Phone</td>
+                        <td>email</td>
+                        <td>address</td>
+                        <td>
+                            <button class=" btn btn-primary">Edit</button>
+                            <button class=" btn btn-danger">Delete</button>
+                        </td>
+                      </tr>
+                      `;
+                    });
+
+                    $('#studentTableBody').html(tr);
+
+
                 },
                 error: function (xhr, status, error) {
                     console.error("Error fetching students:", error);
