@@ -72,6 +72,8 @@
       <table class="table table-striped table-hover">
         <thead class="table-dark">
           <tr>
+            <th>N.O</td>
+            <th>ID</th>
             <th>Image</th>
             <th>Name</th>
             <th>Gender</th>
@@ -217,20 +219,23 @@
 
 
                     let tr = ``;
+
                     $.map(students, function (student, index) {
                       tr += `
-                      <tr>
-                        <td>image.jpg</td>
-                        <td>${student.name}</td>
-                        <td>${student.gender}</td>
-                        <td>Phone</td>
-                        <td>email</td>
-                        <td>address</td>
-                        <td>
-                            <button class=" btn btn-primary">Edit</button>
-                            <button class=" btn btn-danger">Delete</button>
-                        </td>
-                      </tr>
+                        <tr>
+                          <td>${index+1}</td>
+                          <td>${student.id}</td>
+                          <td>image.jpg</td>
+                          <td>${student.name}</td>
+                          <td>${student.gender}</td>
+                          <td>Phone</td>
+                          <td>email</td>
+                          <td>address</td>
+                          <td>
+                              <button class=" btn btn-primary">Edit</button>
+                              <button class=" btn btn-danger">Delete</button>
+                          </td>
+                        </tr>
                       `;
                     });
 
