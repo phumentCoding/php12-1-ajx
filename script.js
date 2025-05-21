@@ -26,7 +26,7 @@ const renderStudent = () => {
                           <td>${student.email}</td>
                           <td>${student.address}</td>
                           <td>
-                              <button class=" btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStudentModal">Edit</button>
+                              <button onclick="editStudent(${student.id})" class=" btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStudentModal">Edit</button>
                               <button onclick="deleteStudent(${student.id})" class=" btn btn-danger">Delete</button>
                           </td>
                         </tr>
@@ -94,6 +94,26 @@ const storeStudent = () => {
 
     } catch (e) {
         console.log("Error : " + e);
+    }
+}
+
+
+const editStudent = (id) => {
+    try{
+    //    alert(id)
+       $.ajax({
+        type: "GET",
+        url: "controller.php?type=edit",
+        data: {
+            "id" : id
+        },
+        dataType: "json",
+        success: function (response) {
+            
+        }
+       });
+    }catch(e){
+        console.error(e);
     }
 }
 

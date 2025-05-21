@@ -44,6 +44,33 @@
         break;
       }
 
+      case 'edit'   : {
+         try{
+            $id = $_GET['id'];
+            $sql = "SELECT * FROM students WHERE id = $id";
+
+            $result = mysqli_query($conn,$sql);
+
+            $student = mysqli_fetch_assoc($result);
+
+            http_response_code(200);
+
+            echo json_encode([
+               'status' => true,
+               'message' => 'Get student by id success'
+            ]);
+
+         }catch(Exception $e){
+            http_response_code(500);
+
+            echo json_encode([
+               'status' => false,
+               'message' => $e->getMessage()
+            ]);
+         }
+         break;
+      }
+
       case 'insert' : {
          try{
 
