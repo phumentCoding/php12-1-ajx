@@ -95,72 +95,10 @@
     </div>
   </div>
 
-  <!-- Add Student Modal -->
-  <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title" id="addStudentModalLabel">Add New Student</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="addStudentForm" method="POST" enctype="multipart/form-data">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="name" class="form-label">Name</label>
-                  <input type="text" name="name" class="form-control" id="name" required />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Gender</label>
-                  <div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="gender" id="male" value="Male" checked />
-                      <label class="form-check-label" for="male">Male</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="gender" id="female" value="Female" />
-                      <label class="form-check-label" for="female">Female</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="phone" class="form-label">Phone</label>
-                  <input type="tel" class="form-control" name="phone" id="phone" required />
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input type="email" class="form-control" name="email" id="email" required />
-                </div>
-                <div class="mb-3">
-                  <label for="address" class="form-label">Address</label>
-                  <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="image" class="form-label">Student Image</label>
-              <input type="file" class="form-control" id="image" name="image" accept="image/*" />
-              <div class="image-preview-container mt-2">
-                <div class="image-preview" id="imagePreview">
-                  <div class="preview-placeholder">Image preview will appear here</div>
-                </div>
-                <div class="remove-image-btn" id="removeImageBtn">
-                  <i class="bi bi-x"></i>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" onclick="storeStudent()" class="btn btn-primary" id="saveStudentBtn">Save Student</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <?php include "modal-add.php" ?>
+
+
+  <?php include "modal-update.php" ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -203,107 +141,8 @@
       removeImageBtn.style.display = 'none';
     }
   </script>
+  <script src="script.js"></script>
 
-  <script>
-        const renderStudent = () => {
-            $.ajax({
-                type: "GET",
-                url: "controller.php?type=select",
-                dataType: "json",
-                success: function (response) {
-                    // console.log("Students fetched:", response);
-
-                    let students = response.students;
-
-                    console.log(students);
-
-
-                    let tr = ``;
-
-                    $.map(students, function (student, index) {
-                      tr += `
-                        <tr>
-                          <td>${index+1}</td>
-                          <td>${student.id}</td>
-                          <td>image.jpg</td>
-                          <td>${student.name}</td>
-                          <td>${student.gender}</td>
-                          <td>${student.phone}</td>
-                          <td>${student.email}</td>
-                          <td>${student.address}</td>
-                          <td>
-                              <button class=" btn btn-primary">Edit</button>
-                              <button onclick="deleteStudent(${student.id})" class=" btn btn-danger">Delete</button>
-                          </td>
-                        </tr>
-                      `;
-                    });
-
-                    $('#studentTableBody').html(tr);
-
-
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error fetching students:", error);
-                }
-            });
-        }
-
-        renderStudent();
-
-
-      //delete student
-      const deleteStudent = (id) => {
-          if(confirm('Do you want to delete this?')){
-            // alert(id)
-
-            $.ajax({
-              type: "POST",
-              url: "controller.php?type=delete",
-              data: {
-                "id" : id,
-              },
-              dataType: "json",
-              success: function (response) {
-                renderStudent();
-              }
-            });
-          }
-      }
-
-
-      const storeStudent = () => {
-          try{
-            let data = new FormData($('#addStudentForm')[0]);
-            let student = {
-                name   : data.get('name'),
-                gender : data.get('gender'),
-                phone  : data.get('phone'),
-                email  : data.get('email'),
-                address: data.get('address')
-            }
-
-            console.log(student);
-
-            $.ajax({
-              type: "POST",
-              url: "controller.php?type=insert",
-              data: student,
-              dataType: "json",
-              success: function (response) {
-                renderStudent();
-
-                //close modal
-                $('#addStudentModal').modal('hide');
-              }
-            });
-
-          }catch(e){
-            console.log("Error : "+e);
-          }
-      }
-      
-
-  </script>
+  
 </body>
 </html>

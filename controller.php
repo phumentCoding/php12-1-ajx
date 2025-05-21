@@ -27,7 +27,7 @@
             echo json_encode([
                'status' => true,
                'message' => 'select all student',
-               'students' => $students
+               'students' => $students 
             ]);
 
 
