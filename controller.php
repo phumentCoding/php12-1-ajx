@@ -57,7 +57,7 @@
 
             echo json_encode([
                'status' => true,
-               'message' => 'Get student by id success'
+               'student' => $student
             ]);
 
          }catch(Exception $e){
