@@ -47,6 +47,7 @@
       case 'edit'   : {
          try{
             $id = $_GET['id'];
+            
             $sql = "SELECT * FROM students WHERE id = $id";
 
             $result = mysqli_query($conn,$sql);
@@ -103,6 +104,9 @@
 
          break;
       }
+
+      
+
 
       case 'delete' : {
 

@@ -103,44 +103,55 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-  <script>
-    const imageInput = document.getElementById('image');
-    const imagePreview = document.getElementById('imagePreview');
-    const removeImageBtn = document.getElementById('removeImageBtn');
 
-    document.addEventListener('DOMContentLoaded', function () {
-      imageInput.addEventListener('change', function () {
-        previewImage(this);
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Init preview in Add Modal
+      initImagePreview('#image', '#imagePreview', '#removeImageBtn');
+
+      // Init preview in Edit Modal each time it's opened
+      const updateModal = document.getElementById('updateStudentModal');
+      updateModal.addEventListener('shown.bs.modal', function () {
+        initImagePreview('#editImage', '#editImagePreview', '#editRemoveImageBtn');
       });
-      removeImageBtn.addEventListener('click', removeImage);
     });
 
-    function previewImage(input) {
-      imagePreview.innerHTML = '';
+    function initImagePreview(imageSelector, previewSelector, removeBtnSelector) {
+      const imageInput = document.querySelector(imageSelector);
+      const imagePreview = document.querySelector(previewSelector);
+      const removeImageBtn = document.querySelector(removeBtnSelector);
 
-      if (input.files && input.files[0]) {
-        const reader = new FileReader();
+      if (!imageInput || !imagePreview || !removeImageBtn) return;
 
-        reader.onload = function (e) {
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          imagePreview.appendChild(img);
-          removeImageBtn.style.display = 'flex';
-        };
+      imageInput.addEventListener('change', function () {
+        imagePreview.innerHTML = '';
 
-        reader.readAsDataURL(input.files[0]);
-      } else {
+        if (this.files && this.files[0]) {
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            imagePreview.appendChild(img);
+            removeImageBtn.style.display = 'flex';
+          };
+
+          reader.readAsDataURL(this.files[0]);
+        } else {
+          imagePreview.innerHTML = '<div class="preview-placeholder">Image preview will appear here</div>';
+          removeImageBtn.style.display = 'none';
+        }
+      });
+
+      removeImageBtn.addEventListener('click', function () {
+        imageInput.value = '';
         imagePreview.innerHTML = '<div class="preview-placeholder">Image preview will appear here</div>';
         removeImageBtn.style.display = 'none';
-      }
-    }
-
-    function removeImage() {
-      imageInput.value = '';
-      imagePreview.innerHTML = '<div class="preview-placeholder">Image preview will appear here</div>';
-      removeImageBtn.style.display = 'none';
+      });
     }
   </script>
+
   <script src="script.js"></script>
 
   

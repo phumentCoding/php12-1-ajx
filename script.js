@@ -144,20 +144,20 @@ const editStudent = (id) => {
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label">Address</label>
-                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+                                <textarea class="form-control" id="address" name="address" rows="3">${student.address}</textarea>
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="image" class="form-label">Student Image</label>
-                        <input type="file" class="form-control" id="image" name="image" accept="image/*" />
+                        <label for="editImage" class="form-label">Student Image</label>
+                        <input type="file" class="form-control" id="editImage" name="image" accept="image/*" />
                         <div class="image-preview-container mt-2">
-                            <div class="image-preview" id="imagePreview">
-                                <div class="preview-placeholder">Image preview will appear here</div>
-                            </div>
-                            <div class="remove-image-btn" id="removeImageBtn">
-                                <i class="bi bi-x"></i>
-                            </div>
+                        <div class="image-preview" id="editImagePreview">
+                            <div class="preview-placeholder">Image preview will appear here</div>
+                        </div>
+                        <div class="remove-image-btn" id="editRemoveImageBtn">
+                            <i class="bi bi-x"></i>
+                        </div>
                         </div>
                     </div>
                 </form>
